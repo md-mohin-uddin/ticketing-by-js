@@ -77,7 +77,7 @@
                 <div class="input-group f-class">
                     <div>
                         <label for="someId">Economy ($100)</label> 
-                        <input id="economyClassCount" type="text" class="form-control text-center" value="1">
+                        <input id="economyClassCount" type="text" class="form-control text-center" value="0">
                     </div>
                     <div class="plus-minus-btn">
                         <button id="economyClassIncrease" class="btn btn-default"><i class="fas fa-plus"></i></button>
@@ -175,7 +175,6 @@
             }
             ticketInput.value = ticketNewCount;
             let economyTicketPrice = ticketNewCount * 100;
-
             let firstQuantity = document.getElementById('firstClassCount').value;
             let subTotalHtml = document.getElementById('subtotal');
             firstPrice = firstQuantity * 150;
@@ -189,9 +188,6 @@
         document.getElementById('bookBtn').addEventListener("click", function () {
             alert('Thanks for booking. Have A safe journey.');
         })
-
-
-
     </script>
     <!--Thank You-->
 </body>
