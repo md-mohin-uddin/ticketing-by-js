@@ -66,7 +66,6 @@
                 <div class="input-group f-class">
                     <div>
                         <label for="someId">First Class ($150)</label>
-                        <!-- <input id="totalTicket" class="inp-style inp-width" type="number" name=""> -->
                         <input id="firstClassCount" type="text" class="form-control text-center" value="0">
                     </div>
                     <div class="plus-minus-btn">
@@ -77,8 +76,7 @@
                 </div>
                 <div class="input-group f-class">
                     <div>
-                        <label for="someId">Economy ($100)</label>
-                        <!-- <input  class="inp-style inp-width" type="number" name=""> -->
+                        <label for="someId">Economy ($100)</label> 
                         <input id="economyClassCount" type="text" class="form-control text-center" value="1">
                     </div>
                     <div class="plus-minus-btn">
@@ -94,7 +92,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$500</p>
+                        <p id="subtotal">$ 0</p>
                     </div>
                 </div>
 
@@ -103,7 +101,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$50</p>
+                        <p id="vat">$0</p>
                     </div>
                 </div>
                 <hr>
@@ -112,14 +110,22 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$550</p>
+                        <p id="finalTotal">$0</p>
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <button class="btn-style" id="bookBtn">Book Now</button>
         </div>
     </main>
     <script>
+
+        let subTotal = 0;
+        let firstPrice = 0;
+        let economyPrice = 0;
+        let vatHtml = document.getElementById('vat');
+        let finalTotalPrice = document.getElementById('finalTotal');
+
+
         // for first class ticket
         document.getElementById('firstClassIncrease').addEventListener("click", function () {
             handleFirstChange(true);
@@ -127,6 +133,7 @@
         document.getElementById('firstClassDecrease').addEventListener("click", function () {
             handleFirstChange(false);
         })
+        
         function handleFirstChange(isIncrease) {
             const ticketInput = document.getElementById('firstClassCount');
             const ticketCount = parseInt(ticketInput.value);
@@ -138,8 +145,16 @@
                 ticketNewCount = ticketCount - 1;
             }
             ticketInput.value = ticketNewCount;
-            const firstTicketPrice = ticketNewCount * 150;
-            console.log(firstTicketPrice)
+            let firstTicketPrice = ticketNewCount * 150;
+            let economyQuantity = document.getElementById('economyClassCount').value;
+            let subTotalHtml = document.getElementById('subtotal');
+            economyPrice = economyQuantity * 100;
+            subTotal = firstTicketPrice + economyPrice;
+            let vat = subTotal * 0.1;
+            subTotalHtml.innerText = subTotal;
+            vatHtml.innerText = vat;
+            finalTotalPrice.innerText = subTotal + vat;
+
         }
         // for economy class
         document.getElementById('economyClassIncrease').addEventListener("click", function () {
@@ -159,9 +174,22 @@
                 ticketNewCount = ticketCount - 1;
             }
             ticketInput.value = ticketNewCount;
-            const economyTicketPrice = ticketNewCount * 100;
-            console.log(economyTicketPrice)
+            let economyTicketPrice = ticketNewCount * 100;
+
+            let firstQuantity = document.getElementById('firstClassCount').value;
+            let subTotalHtml = document.getElementById('subtotal');
+            firstPrice = firstQuantity * 150;
+            subTotal = firstPrice + economyTicketPrice;
+            let vat = subTotal * 0.1;
+            subTotalHtml.innerText = subTotal;
+            vatHtml.innerText = vat;
+            finalTotalPrice.innerText = subTotal + vat;
+
         }
+        document.getElementById('bookBtn').addEventListener("click", function () {
+            alert('Thanks for booking');
+        })
+
 
 
     </script>
